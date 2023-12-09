@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPun
 {
     public float speed;
     public float jumpForce;
@@ -25,21 +26,12 @@ public class PlayerMovement : MonoBehaviour
         playerInput.onJump += Jump;
     }
 
-    private void Update()
-    {
-        if(playerInput.horizontal == -1)
-        {
-            playerRenderer.flipX = true;
-        }
-        else if(playerInput.horizontal == 1)
-        {
-            playerRenderer.flipX = false;
-        }
-
-    }
-
     private void FixedUpdate()
     {
+        if(!photonView.IsMine)
+        {
+            return;
+        }
         Move();
         PlayAnim();
     }
@@ -62,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (playerInput.horizontal != 0 )
         {
             playerAnimator.SetBool("isWalking", true);
+            photonView.RPC("ChangeFlip", RpcTarget.AllBuffered, playerInput.horizontal);
         }
         else
         {
@@ -74,6 +67,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    private void ChangeFlip(float horizontal)
+    {
+        if (horizontal == -1)
+        {
+            playerRenderer.flipX = true;
+        }
+        else if (horizontal == 1)
+        {
+            playerRenderer.flipX = false;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Ground"))

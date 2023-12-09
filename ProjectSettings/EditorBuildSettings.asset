@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Lobby.unity
+    guid: 0c6892990d83ea34aad0268cc5107b2f
+  - enabled: 1
+    path: Assets/Scenes/CholhoDev.unity
+    guid: d2dbf86146a59bd4b942a5d328905243
   m_configObjects: {}

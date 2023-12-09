@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviourPun
 {
     public PlayerType playerType;
 
@@ -22,6 +23,11 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        if(!photonView.IsMine)
+        {
+            return;
+        }
+
         horizontal = GetHorizontalAxis();
         JumpAction();
     }
