@@ -3,18 +3,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public UIManager instance
+    public static UIManager instance
     {
         get
         {
-            if (instance == null)
+            if (m_instance == null)
             {
                 m_instance = FindObjectOfType<UIManager>();
             }
             return m_instance;
         }
     }
-    private UIManager m_instance;
+    private static UIManager m_instance;
 
     public Text playerCountText;
 
